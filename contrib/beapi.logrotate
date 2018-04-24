@@ -1,0 +1,13 @@
+/home3/beapi/log/httpd_error_log /home3/beapi/log/httpd_access_log {
+    daily
+    rotate 5
+    missingok
+    notifempty
+    sharedscripts
+    compress
+    delaycompress
+    postrotate
+        /bin/systemctl reload httpd.service > /dev/null 2>/dev/null || true
+    endscript
+    create 664 apache apache
+}

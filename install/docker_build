@@ -1,0 +1,10 @@
+#!/bin/bash
+# build docker image from flaskit project
+
+IMAGE=clap/myapi4
+
+# Project dir
+DIR=$(dirname $(dirname $(readlink -f $0)))
+cd $DIR
+
+docker build -t ${IMAGE} --no-cache=true -f install/Dockerfile .

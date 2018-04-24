@@ -1,0 +1,58 @@
+#!/bin/sh
+# Install FlaskIT API Project
+# This script can be used to install or upgrade requirements of a FlaskIT Project
+# Just run it....
+
+PYTHON_ENGINE=python2.7
+PIP=pip-9.0.1.tar.gz
+PYPI=dhmbupiapia01.int.adeo.com
+VENV=venv
+
+fixup_dev() {
+
+  # Detect a template dev wrapper script (installed by setup in dev mode).
+  # This wrapper prevent working in WSGI mode, so we replace it with the dev version
+  # (this only prevent using update from dev place)
+  BIN=$VENV/bin/$1
+  grep -q EASY-INSTALL-DEV-SCRIPT $BIN || RC=0 && RC=1
+  if [ $RC -eq 0 ]; then
+    ORI=$(sed -nre "/^__file__/s/.*'(.*)'/\1/p" $BIN)
+    cp $ORI $BIN
+    echo "[FlaskIT] Dev mode detected : fix $BIN"
+  fi
+}
+
+# abort if error occurs
+set -e
+
+DIR=$(dirname $(dirname $(readlink -f $0)))
+cd $DIR
+if [ ! -f install/requirement.txt ]; then
+  echo "Error : unable to find file ${DIR}/install/requirement.txt" 
+  exit 1
+fi
+
+# Create virtualenv
+if [ ! -d $VENV ]; then
+  FIRST=1
+  virtualenv -p $PYTHON_ENGINE --system-site-packages $VENV
+fi
+
+. $VENV/bin/activate
+
+# Upgrade pip (only at initial install)
+if [ ! -z $FIRST ]; then
+  wget --no-check-certificate https://${PYPI}/pypi/simple/pip/${PIP} -O /tmp/${PIP}
+  pip install --upgrade /tmp/${PIP}
+fi
+
+# Install or upgrade mode
+pip --trusted-host=${PYPI} install --index-url=https://${PYPI}/pypi/simple/ --upgrade -r install/requirement.txt
+
+# Fix flaskit_launcher (dev mode/WSGI)
+fixup_dev flaskit_launcher.py
+
+echo
+echo "[FlaskIT] Run project :"
+echo "[FlaskIT]      venv/bin/flaskit"
+echo "[FlaskIT] or   flaskit    (if venv is already activated)"

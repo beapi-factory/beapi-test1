@@ -1,0 +1,2 @@
+# remove old audit files (in hours)
+0 1 * * * root /usr/bin/tmpwatch -q -m 120 /home3/myapi3/log/audit/ &>/dev/null
