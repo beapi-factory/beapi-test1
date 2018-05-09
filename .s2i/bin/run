@@ -13,7 +13,7 @@ env
 
 #bash -x venv/bin/flaskit
 PROJECTDIR=$(pwd)
-SCRIPTPATH=${VIRTUAL_ENV}/bin
+SCRIPTPATH=${VIRTUAL_ENV}/src/venv/bin
 
 # Choose environment
 if [ -z $1 ]; then
