@@ -1,13 +1,15 @@
 #!/bin/bash
 
+pwd
+ls -al
 
-mkdir -p /home3/beapi/log
-chown -R apache /home3/beapi
-mkdir -p /usr/local/beapi
+#mkdir -p /home3/beapi/log
+#chown -R apache /home3/beapi
+#mkdir -p /usr/local/beapi
 
-cp $(pwd)/* /usr/local/beapi
+#cp $(pwd)/* /usr/local/beapi
 
-cd /usr/local/beapi
+#cd /usr/local/beapi
 
 install/flaskit_mkvenv
 
