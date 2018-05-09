@@ -1,6 +1,12 @@
 #!/bin/bash
 
+whoami
+pwd
+ls -al
+ls -al /tmp/src
 #cd /usr/local/beapi
+
+cd /opt/app-root/src
 
 venv/bin/flaskit
 
