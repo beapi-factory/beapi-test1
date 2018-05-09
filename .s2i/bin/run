@@ -3,10 +3,9 @@
 whoami
 pwd
 ls -al
-ls -al /tmp/src
 #cd /usr/local/beapi
 
-cd /opt/app-root/src
+#cd /opt/app-root/src
 
-venv/bin/flaskit
+bash -x venv/bin/flaskit
 
