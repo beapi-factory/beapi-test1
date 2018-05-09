@@ -1,13 +1,16 @@
 #!/bin/bash
 
+whoami
 pwd
 ls -al
+ls -al /tmp/src
 
 #mkdir -p /home3/beapi/log
 #chown -R apache /home3/beapi
 #mkdir -p /usr/local/beapi
 
 #cp $(pwd)/* /usr/local/beapi
+mv /tmp/src/* ./
 
 #cd /usr/local/beapi
 
