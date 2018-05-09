@@ -1,8 +1,10 @@
 #!/bin/bash
 
+set -x
 whoami
 pwd
 ls -al
+env
 #cd /usr/local/beapi
 
 #cd /opt/app-root/src
