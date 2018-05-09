@@ -9,5 +9,37 @@ env
 
 #cd /opt/app-root/src
 
-bash -x venv/bin/flaskit
+#bash -x venv/bin/flaskit
+PROJECTDIR=$(pwd)
+
+# Choose environment
+if [ -z $1 ]; then
+  cd $PROJECTDIR/env
+  NB=$(ls -1 | wc -l)
+
+  if [ $NB -eq 1 ]; then
+    ENVIRONMENT=$(ls)
+  else
+    echo "Usage : $0 <env>"
+    echo "  available env : "$(ls)
+    exit 1
+  fi
+else
+  ENVIRONMENT=$1
+  shift
+fi
+
+if [ ! -f "$PROJECTDIR/env/$ENVIRONMENT/config.cfg" ]; then
+  echo "[FlaskIT] Error : invalid environment ($PROJECTDIR/env/$ENVIRONMENT/config.cfg not found)"
+  exit 1
+fi
+
+# Start FlaskIT launcher
+if $(grep -q "^__file__ =" ${SCRIPTPATH}/flaskit_launcher.py); then
+  echo "[FlaskIT] Starting with environment : $ENVIRONMENT (flaskit dev mode)"
+  python $SCRIPTPATH/flaskit_launcher.py --env "$ENVIRONMENT" --dir $PROJECTDIR "$@"
+else
+  echo "[FlaskIT] Starting with environment : $ENVIRONMENT"
+  python $SCRIPTPATH/flaskit_launcher.py --env "$ENVIRONMENT" "$@"
+fi
 
