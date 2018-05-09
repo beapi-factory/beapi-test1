@@ -5,7 +5,6 @@
 
 PYTHON_ENGINE=python2.7
 PIP=pip-9.0.1.tar.gz
-PYPI=dhmbupiapia01.int.adeo.com
 VENV=venv
 
 fixup_dev() {
@@ -27,7 +26,7 @@ set -e
 
 DIR=$(dirname $(dirname $(readlink -f $0)))
 cd $DIR
-if [ ! -f install/requirement.txt ]; then
+if [ ! -f requirements.txt ]; then
   echo "Error : unable to find file ${DIR}/install/requirement.txt" 
   exit 1
 fi
@@ -40,14 +39,11 @@ fi
 
 . $VENV/bin/activate
 
-# Upgrade pip (only at initial install)
-if [ ! -z $FIRST ]; then
-  wget --no-check-certificate https://${PYPI}/pypi/simple/pip/${PIP} -O /tmp/${PIP}
-  pip install --upgrade /tmp/${PIP}
-fi
 
 # Install or upgrade mode
-pip --trusted-host=${PYPI} install --index-url=https://${PYPI}/pypi/simple/ --upgrade -r install/requirement.txt
+#pip --trusted-host=${PYPI} install --index-url=https://${PYPI}/pypi/simple/ --upgrade -r requirements.txt
+#pip --trusted-host=nexus3.adeo.com install --index-url=https://nexus3.adeo.com/repository/pypi-proxy/simple/ xmltodict
+pip --trusted-host=${PIP_TRUSTED_HOST} install --index-url=https://${PIP_TRUSTED_HOST}/repository/pypi-all/simple/ --upgrade -r requirements.txt
 
 # Fix flaskit_launcher (dev mode/WSGI)
 fixup_dev flaskit_launcher.py

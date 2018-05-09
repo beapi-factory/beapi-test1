@@ -1,0 +1,20 @@
+#!/bin/bash
+
+
+mkdir -p /home3/beapi/log
+chown -R apache /home3/beapi
+mkdir -p /usr/local/beapi
+
+cp $(pwd)/* /usr/local/beapi
+
+cd /usr/local/beapi
+
+install/flaskit_mkvenv
+
+
+#ln -sf /usr/local/beapi/env/beapi.default/httpd.conf /etc/httpd/conf.d/beapi.conf
+#
+#CMD ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
+#EXPOSE 8445
+
+

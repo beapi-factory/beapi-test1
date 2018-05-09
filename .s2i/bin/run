@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd /usr/local/beapi
+
+venv/bin/flaskit
+
