@@ -4,7 +4,7 @@ set -x
 whoami
 pwd
 ls -al
-ls -al ${VIRTUAL_ENV}/venv/bin
+ls -al ${VIRTUAL_ENV}
 env
 #cd /usr/local/beapi
 
