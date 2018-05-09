@@ -4,7 +4,8 @@ set -x
 whoami
 pwd
 ls -al
-ls -al ${VIRTUAL_ENV}
+ls -al venv
+ls -al ${VIRTUAL_ENV}/bin
 env
 #cd /usr/local/beapi
 
@@ -12,7 +13,7 @@ env
 
 #bash -x venv/bin/flaskit
 PROJECTDIR=$(pwd)
-SCRIPTPATH=${VIRTUAL_ENV}/venv/bin
+SCRIPTPATH=${VIRTUAL_ENV}/bin
 
 # Choose environment
 if [ -z $1 ]; then
